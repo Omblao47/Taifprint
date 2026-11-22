@@ -1,0 +1,87 @@
+-- ملف إنشاء جدول بطاقة المتابعة
+-- Fiche de Suivi Schema
+
+CREATE TABLE IF NOT EXISTS public.fiche_de_suivi (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+
+    -- معلومات أساسية (Header)
+    date_fiche DATE,
+    numero_fiche VARCHAR(50),
+    client VARCHAR(255),
+    code_client VARCHAR(50),
+    tel VARCHAR(50),
+    designation TEXT,
+    date_commande DATE,
+    date_livraison DATE,
+
+    -- الورق (Papier)
+    papier_type VARCHAR(100),
+    papier_grammage VARCHAR(50),
+    papier_format VARCHAR(100),
+    qnt_tirage INTEGER,
+    qnt_pcs INTEGER,
+
+    -- الطباعة (Impression)
+    imp_quadri BOOLEAN DEFAULT FALSE,
+    imp_bichromie BOOLEAN DEFAULT FALSE,
+    imp_mono BOOLEAN DEFAULT FALSE,
+    imp_5e_passage BOOLEAN DEFAULT FALSE,
+    imp_recto_verso BOOLEAN DEFAULT FALSE,
+
+    -- تحضير الألواح (Préparation des plaques)
+    prep_ctf BOOLEAN DEFAULT FALSE,
+    prep_ctp BOOLEAN DEFAULT FALSE,
+    prep_operateur VARCHAR(100),
+    prep_date DATE,
+
+    -- التسطير (Tirage offset - Poste 1)
+    poste1_operateur VARCHAR(100),
+    poste1_quantite INTEGER,
+    poste1_validation VARCHAR(100),
+
+    -- التسطير (Tirage offset - Poste 2)
+    poste2_operateur VARCHAR(100),
+    poste2_quantite INTEGER,
+    poste2_validation VARCHAR(100),
+
+    -- التسطير (Tirage offset - Poste 3)
+    poste3_operateur VARCHAR(100),
+    poste3_quantite INTEGER,
+    poste3_validation VARCHAR(100),
+
+    -- التغليف (Pelliculage)
+    pell_brillant BOOLEAN DEFAULT FALSE,
+    pell_mat BOOLEAN DEFAULT FALSE,
+    pell_avec_fenetre BOOLEAN DEFAULT FALSE,
+    pell_recto_verso BOOLEAN DEFAULT FALSE,
+    pell_quantite INTEGER,
+    pell_date DATE,
+
+    -- التشكيل (Façonnage)
+    fac_decoupe BOOLEAN DEFAULT FALSE,
+    fac_rainage BOOLEAN DEFAULT FALSE,
+    fac_perforation BOOLEAN DEFAULT FALSE,
+    fac_numerotation BOOLEAN DEFAULT FALSE,
+    fac_quantite INTEGER,
+    fac_date DATE,
+
+    -- أخرى (Autres)
+    autre_assemblage BOOLEAN DEFAULT FALSE,
+    autre_piquage BOOLEAN DEFAULT FALSE,
+    autre_collage BOOLEAN DEFAULT FALSE,
+    autre_nbr_feuilles INTEGER,
+    autre_quantite INTEGER,
+    autre_date DATE,
+
+    -- المقوى والملاحظات (Massicot & Remarque)
+    massicot_format_fini VARCHAR(100),
+    livraison_livre_par VARCHAR(100),
+    livraison_date DATE,
+    remarque TEXT,
+    emballage_par VARCHAR(100),
+
+    -- تذييل الصفحة (Footer)
+    bn VARCHAR(100),
+    saisir_avec VARCHAR(100)
+);
